@@ -1,10 +1,46 @@
 ﻿@page
 @model IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Players[0].PlayerID)</th>
+            <th>@Html.DisplayNameFor(model => model.Players[0].PlayerName)</th>
+            <th>@Html.DisplayNameFor(model => model.Players[0].Currency)</th>
+            <th>Characters</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Players)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.PlayerID)</td>
+            <td>@Html.DisplayFor(modelItem => item.PlayerName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Currency)</td>
+            <td> 
+                @foreach (var character in item.Characters)
+                {
+                    <span class="badge bg-secondary">@character.Name</span>
+                    <span class="badge bg-primary">@character.Class</span>
+                    <br />
+                }
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PlayerID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PlayerID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PlayerID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

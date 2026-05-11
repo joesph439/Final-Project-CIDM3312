@@ -16,5 +16,6 @@ public class Character
 
     public int PlayerID {get; set;}
 
-    public List<Player> Players {get; set;} = default!;
+    public Player Player { get; set; } = default!;
+    public Stats Stats { get; set; } = default!;
 }

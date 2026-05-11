@@ -5,9 +5,11 @@ namespace Final_Project_CIDM3312.Models;
 
 public class Player
 {
-    public int PlayerID {get; set;}
+    public int PlayerID { get; set; }
 
-    public string PlayerName {get; set;} = string.Empty;
+    public string PlayerName { get; set; } = string.Empty;
 
-    public int Currency {get; set;}
+    public int Currency { get; set; }
+
+    public List<Character> Characters { get; set; } = new List<Character>();
 }

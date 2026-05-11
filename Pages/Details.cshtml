@@ -1,0 +1,67 @@
+@page "{id:int}"
+@model DetailsModel
+
+@{
+    ViewData["Title"] = "Player Details";
+}
+
+<h2>@Model.Player.PlayerName</h2>
+<p><strong>Currency:</strong> @Model.Player.Currency</p>
+
+<hr />
+<h4>Characters</h4>
+
+@foreach (var character in Model.Characters)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>
+                @character.Name
+                <span class="badge bg-secondary">@character.Class</span>
+                <span class="badge bg-primary">Level @character.Level</span>
+                <span class="badge bg-warning text-dark">XP: @character.XP</span>
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (character.Stats != null)
+            {
+                <div class="row text-center">
+                    <div class="col">
+                        <div class="fw-bold">Health</div>
+                        <div>@character.Stats.Health</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Mana</div>
+                        <div>@character.Stats.Mana</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Strength</div>
+                        <div>@character.Stats.Strength</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Intelligence</div>
+                        <div>@character.Stats.Intelligence</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Willpower</div>
+                        <div>@character.Stats.Willpower</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Agility</div>
+                        <div>@character.Stats.Agility</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Luck</div>
+                        <div>@character.Stats.Luck</div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No stats found.</p>
+            }
+        </div>
+    </div>
+}
+
+<a asp-page="./Index" class="btn btn-secondary mt-2">Back to Players</a>

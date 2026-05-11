@@ -20,5 +20,5 @@ public class Stats
 
     public int CharacterID {get; set;}
 
-    public List<Character> Characters {get; set;} = default!;
+    public Character Characters {get; set;} = default!;
 }

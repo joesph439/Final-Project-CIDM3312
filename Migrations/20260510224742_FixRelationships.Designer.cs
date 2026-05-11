@@ -2,6 +2,7 @@
 using Final_Project_CIDM3312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Project_CIDM3312.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260510224742_FixRelationships")]
+    partial class FixRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -105,7 +108,7 @@ namespace Final_Project_CIDM3312.Migrations
             modelBuilder.Entity("Final_Project_CIDM3312.Models.Character", b =>
                 {
                     b.HasOne("Final_Project_CIDM3312.Models.Player", "Player")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("PlayerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -128,11 +131,6 @@ namespace Final_Project_CIDM3312.Migrations
                 {
                     b.Navigation("Stats")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Final_Project_CIDM3312.Models.Player", b =>
-                {
-                    b.Navigation("Characters");
                 });
 #pragma warning restore 612, 618
         }

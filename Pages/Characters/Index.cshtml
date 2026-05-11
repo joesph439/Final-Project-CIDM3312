@@ -11,28 +11,54 @@
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Character[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Character[0].Class)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Character[0].Level)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Character[0].XP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Character[0].PlayerID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+<thead>
+    <tr>
+        <th>
+            @{
+                var nameSort = "name_asc";
+                if (Model.CurrentSort == "name_asc")
+                {
+                    nameSort = "name_desc";
+                }
+            }
+            <a asp-page="./Index" asp-route-CurrentSort="@nameSort" asp-route-PageNum="@Model.PageNum">@Html.DisplayNameFor(model => model.Characters[0].Name)</a>
+        </th>
+        <th>
+            @{
+                var classSort = "class_asc";
+                if (Model.CurrentSort == "class_asc")
+                {
+                    classSort = "class_desc";
+                }
+            }
+            <a asp-page="./Index" asp-route-CurrentSort="@classSort" asp-route-PageNum="@Model.PageNum">@Html.DisplayNameFor(model => model.Characters[0].Class)</a>
+        </th>
+        <th>
+            @{
+                var levelSort = "level_asc";
+                if (Model.CurrentSort == "level_asc")
+                {
+                    levelSort = "level_desc";
+                }
+            }
+            <a asp-page="./Index" asp-route-CurrentSort="@levelSort" asp-route-PageNum="@Model.PageNum">@Html.DisplayNameFor(model => model.Characters[0].Level)</a>
+        </th>
+        <th>
+            @{
+                var xpSort = "xp_asc";
+                if (Model.CurrentSort == "xp_asc")
+                {
+                    xpSort = "xp_desc";
+                }
+            }
+            <a asp-page="./Index" asp-route-CurrentSort="@xpSort" asp-route-PageNum="@Model.PageNum">@Html.DisplayNameFor(model => model.Characters[0].XP)</a>
+        </th>
+        <th>Player</th>
+        <th></th>
+    </tr>
+</thead>
     <tbody>
-@foreach (var item in Model.Character) {
+@foreach (var item in Model.Characters) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -58,3 +84,25 @@
 }
     </tbody>
 </table>
+<hr />
+
+@{
+    // If we are on page 1, prevDisabled will be set to the "disabled" class
+    // otherwise, it will be empty. So our previous button will be enabled or disabled based on this logic
+    var prevDisabled = "";
+    var nextDisabled = "";
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+    if (Model.PageNum >= Model.TotalPages)
+    {
+        nextDisabled = "disabled";
+    }
+}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)">Previous</a></li>
+        <li class="page-item @nextDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)">Next</a></li>
+    </ul>
+</nav>
